@@ -1,0 +1,189 @@
+General Codes:
+A) Section and Prepare Embryos List:  
+B) Manual Segmentation and Quality Check
+C) Full Embryo Final Segmentation
+D) Final Bounded Segmented Images and Sectioned Embryos
+E) Final Full Embryo Bound Stats
+F) Embryo Raw Velocity Extraction and Map
+G) Embryo Velocity Sections
+E) Gather Table for Training data, Train and Export model
+F) Make Predictions
+%............................................................................................................%
+A) Section and Prepare Embryos List: (Acetylated Tubulin)
+%............................................................................................................%
+1) path: 'D:\Cilia Map\Image Segmentation\Embryo Map\Section Embryos'
+   file: 'Final_Section_Embryos.m'
+   save: 'Sections_Im4_Mem.mat' or 'Sections_Im4_Tub.mat'
+function1: imrotate(Imem,angle,'bicubic','crop');
+function2: sectionembryonew(Imem_rotate,X1,X2,Y1,Y2);
+functiom3: 'orientimages.m'
+
+optional:
+2) path: 'D:\Cilia Map\Image Segmentation\Embryo Map\Section Embryos'
+   file: 'Prepare_Image_Preprocessing.m'
+
+%............................................................................................................%
+B) PREPARATION: Manual Segmentation and Quality Check
+%............................................................................................................%
+1) path: 'D:\Cilia Map\Image Segmentation\Embryo Map\Section Embryos\Segmentation Codes\'  
+   file1: 'Ver2_Final Manual Segmentation.m' (Manual Segmentation) and 'Axolotl_Final Manual Segmentation.m'
+   function1: 'counterwatershednew.m' (optional)
+
+2) file2: 'Add_Remove_Masks.m' (Quality check)
+   function1: colormap2.m
+   function2: colormap.m
+   function3: 'removeareamask.m'
+   function4: 'addareamask.m'
+   function5: 'visualize_sections.m'
+
+%............................................................................................................%
+C) PREPARATION: Full Embryo Final Segmentation
+%............................................................................................................%
+1) path: 'D:\Cilia Map\Image Segmentation\Embryo Map\Section Embryos\Segmentation Codes\'
+   file1: 'Full_Embryo_Stats.m'
+   file2: 'Final_Manual_Segmentation'
+   function1: 'orientimages.m'
+
+   savepath = 'D:\Cilia Map\Image Segmentation\Embryo Map\Section Embryos\Final Trials\Trial1\Sample4\FullEmbryo Sample4\'
+   mainfile: 'Fullemb_Fin.mat'
+
+%............................................................................................................%
+D) PREPARATION: Embryo Raw Velocity Extraction and Map
+%............................................................................................................% 
+PREPARE VELOCITY IMAGES
+1) path: 'D:\Cilia Map\PIV\Window_PIV_Vignesh\Analysis\Window Sections\Prepare velocities'
+   file1: 'Ver2_PIVLab_Velocity_Extraction_ROI.m'
+function1: 'norm2dmatrix.m'
+function2: 'ellipse.m'
+function3: 'quiverC2D.m'
+
+savepath = ''D:\Cilia Map\PIV\Window_PIV_Vignesh\Analysis\Final Trials\Trial3\Sample4\All Velocity\Raw Velocity\'
+%............................................................................................................%
+E) PREPARATION: Final Bounded Segmented Images and Sectioned Embryos
+Order: 1) 'Ver2_Bounding_Box_Images.m'
+       2) 'Ver2_Reshape_MCC_Architecture.m'
+       3) 'Ver2_Bounding_Box_Images_Velocity.m'
+%............................................................................................................%
+1) path: 'D:\Cilia Map\PIV\Window_PIV_Vignesh\Analysis\Window Sections\'
+   file1: 'Ver2_Bounding_Box_Images.m'
+   file2: 'Ver2_Reshape_MCC_Architecture.m'
+   file3: 'Ver2_Bounding_Box_Images_Velocity.m'
+   Old file2: 'Get_All_Sections_Raw_Resized.m'
+   function1: 'findbounding_sections.m'
+   function2: 'getsectionsfromcrop.m'
+   function3: 'addorremove2.m'
+   function4: 'addorremove.m'
+   function5: 'sectionembryofin.m' and 'sectionembryofin_reverse.m'
+   function6: 'Ver2_Reshape_MCC_Architecture.m'
+   function6a: 'compressmid.m'
+   function6b: Library functions: 'geometricTransform2d' and 'imwrap'
+   function7: 'Smooth_gradient_resize_single_V3.m'
+   function8: 'Smooth_gradient_resize_single_V3_Concavity.m'
+ 
+ 
+savepath1: 'D:\Cilia Map\Image Segmentation\Embryo Map\Section Embryos\Segmentation Codes\All Full Embryos\Final Sections\T1_S4\RawMemAct.mat'
+           'ResMemAct.mat'
+savepath2: 'D:\Cilia Map\Image Segmentation\Embryo Map\Section Embryos\Final Trials\Trial3\Sample4\Defined Crops\Original_Final_Sections.mat'
+           'Original_Final_Sections_Mem', 'Original_Final_Sections_Vel'
+%............................................................................................................%
+PREPARATION: Embryo Velocity Sections
+%............................................................................................................% 
+EMBRYO SECTIONS VELOCITY
+1) path: 'D:\Cilia Map\PIV\Window_PIV_Vignesh\Analysis\Window Sections\'
+   file1: 'Ver2_Bounding_Box_Images_Velocity.m'
+   function1: 'V2_Get_velocity_sections.m'
+   function2: 'V2_Get_velocity_sections_reverse.m'
+   function3: 'sectionembryofin.m'
+   function4: 'sectionembryofin_reverse.m'
+%............................................................................................................% 
+%............................................................................................................% 
+F) Extract Windows of Raw and Resized Features
+%............................................................................................................% 
+%............................................................................................................%
+ALL TISSUE PARAMETER
+1) path: 'D:\Cilia Map\PIV\Window_PIV_Vignesh\Analysis\Feature Extraction Tissue'
+   file1: 'Ver2_Master_All_Feature_Extraction_One_One_Flow.m'
+   file2: 'Resized_Ver2_Master_All_Feature_Extraction_One_One_Flow.m'
+   file3: 'Gather_Data_Post_Process.m' 	
+   
+   function1: 'colormap.m'
+   function11: 'xExpandMatrix.m'
+   function2: 'ONLY_Windows_Tol_VER2.m'
+   function3: 'filter_edge_decisiom.m'
+   function4: 'windowmethod_ensembledtissueparam.m'   
+   function5: 'autocorr2d.m'
+   function6: 'runautocorrensemble_new.m'
+   function7: 'findminimamaxima_FIRSTPOS_maxima.m'
+   function8: 'getplotsofhistogram.m'
+   function9: 'removeNaN.m'
+%............................................................................................................% 
+%............................................................................................................% 
+G) Extract Velocity Features
+%............................................................................................................% 
+%............................................................................................................% 
+
+1) path: 'D:\Cilia Map\PIV\Window_PIV_Vignesh\Analysis\Window Based Velocity Extractions\'
+   mainfile: 'VER2_MASTERCODE_ALL_VELOCITY_ENSEMBLED.m'
+   function1: 'VER5_MASTER_VELOCITY_EXTRACTION.m'
+   function2: 'windowmethod_ONE_Flow_New.m'
+   function3: 'xExpandMatrix.m'
+
+savepath: 'D:\Cilia Map\PIV\Window_PIV_Vignesh\Analysis\Final Trials\Trial1\Sample4\'
+%............................................................................................................%
+%% H) Data preparation, Train, and Prediction
+%............................................................................................................%
+1) Universal_Train_Test_Predict_Sets.m
+   ii) master_remove_outliers_randomize.m
+   iii) master_test_train_sample.m
+   iv) normalizeoutput.m
+   v) labelsamples.m
+   vi) getrawvaluesback.m
+   vi) getrawvaluesback_V2.m
+   vii) getrawvaluesback_V3.m
+   All Plots:
+   i) multiple_line_plots.m (raw response plots) 1) multiple_line_plots_trend_V2
+   ii) multiple_single_prediction_plot.m (prediction response plots) 2) multiple_single_prediction_plot_V3.m
+   iii) all_features_plot.m (all combinations of features correlation)
+   Universal_Train_Test_Sets
+   i) Plotrawvalues_All.m
+   ii) Plotrawvalues_Predictions.m
+2) Stitch_Images_Predict_Colorcode.m
+   i) getrawvaluesback_V3.m
+   ii) visualize_test_all.m
+   iii) Full_Tiles_visualize_test_all.m
+   iv) getfinaltesttrain.m
+   Visualize output:
+     i) V2_visualize_test_divergence
+     ii) V2_vizualize_pred_divergence
+     iii) V2_visualize_test_magnitude
+     iV) V2_vizualize_pred_magnitude
+     V) getallquivers.m
+     Vi) getallquivers_flip.m
+     vii) getbinindeximages.m
+     viii) xExpandMatrix.m
+     iX) quiverC2D2.m
+     x) getreshapedwindowfills.m
+%............................................................................................................%
+OTHER: Final Full Embryo Bound Stats
+%............................................................................................................%
+1) path: 'D:\Cilia Map\Image Segmentation\Embryo Map\Section Embryos\Segmentation Codes\'
+   file1: 'Full_Embryo_Stats.m'
+   file2: 'Final_Manual_Segmentation'
+   function1: 'Images_allprops_conv.m'
+   function2: 'plot_allcell_props.m'
+   function3: 'visualize_sections2.m'
+   function4: 'visualize_sections_single.m'
+   function5: 'visualize_sections.m'
+   function6: 'orientimages.m'
+
+   savepath = 'D:\Cilia Map\Image Segmentation\Embryo Map\Section Embryos\Segmentation Codes\All Full Embryos\'
+   mainfile: 'All_FullCrop_T3_S3.mat'
+   file: 'Fin_Full_Embryos.mat'
+
+2) Velocity of ROI for any rectangular crops
+path: 'D:\Cilia Map\PIV\Window_PIV_Vignesh\Analysis\Window Sections\Prepare velocities\Rectangular Crops'
+file: 'Select_Velocity_ROI_AVERAGE.m'
+function1: 'getcroppedrectangle.m'
+function2: 'customWait.m'
+function3: 'clickCallback.m'
+function4: 'quiverC2D.m'

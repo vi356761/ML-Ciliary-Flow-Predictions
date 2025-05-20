@@ -1,0 +1,29 @@
+function [A,minima,lamda] = runautocorrensemble_new(img,thresh)
+A=autocorr2d(img);
+% r = size(A,1);
+% c = size(A,2);
+% F1 = A(100,:);
+% F2 = A(:,100);
+F1 = mean(A,1);
+F2 = mean(A,2);
+[minima1,maxima1] = findminimamaxima_FIRSTPOS_maxima(F1,thresh);
+[minima2,maxima2] = findminimamaxima_FIRSTPOS_maxima(F2,thresh);
+% [minima1,maxima1] = findminimamaxima_All_Peaks_Diff_Mean_NEW(F1,13);
+% [minima2,maxima2] = findminimamaxima_All_Peaks_Diff_Mean_NEW(F2,13);
+% [minima1,maxima1] = findminimamaxima_All_Peaks_Diff_Mean_Slope_NEW(F1,13);
+% [minima2,maxima2] = findminimamaxima_All_Peaks_Diff_Mean_Slope_NEW(F2,13);
+% [minima1,maxima1] = findminimamaxima_All_Peaks_Diff_Mean_Slope(F1,13);
+% [minima2,maxima2] = findminimamaxima_All_Peaks_Diff_Mean_Slope(F2,13);
+% [minima1,maxima1] = findminimamaxima_peaks(F1);
+% [minima2,maxima2] = findminimamaxima_peaks(F2);
+% [minima1,maxima1] = findminimamaxima_Positive_Peaks_Diff_Mean(F1,13);
+% [minima2,maxima2] = findminimamaxima_Positive_Peaks_Diff_Mean(F2,13);
+%[minima1,maxima1] = findminimamaxima_peaks_new(F1,12.2); % 15 minimum represents distance from which peaks should be considered
+%[minima2,maxima2] = findminimamaxima_peaks_new(F2,12.2);
+%[minima1,maxima1] = findminimamaxima_peaks_new_Lamda(F1,12.2);
+%[minima2,maxima2] = findminimamaxima_peaks_new_Lamda(F2,12.2);
+minima= (minima1 + minima2)/2;
+lamda = (maxima1 + maxima2)/2; %lamda in pixels
+%gamma = 1-(sqrt(2)/lamda);
+
+end
